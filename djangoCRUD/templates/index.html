@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pets Register</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'CSS/estilos.css' %}">
+  </head>
+  <body class="bg1">
+
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col">
+            <h3>About the app</h3>
+              <p style=text-align:justify;>With this project I pretend to create a web app in which a user can register their name, the type
+                of pet they have, its name, and whether the pet is vaccinated or not. Besides, the user will find
+                two buttons on the table that shows the data submitted. With the 'edit' button they can change the
+                info submitted. With the 'delete' button, they can delete the information registered.</p>
+        </div>
+        <div class="col">
+            <h3>Sobre la aplicación</h3>
+              <p style=text-align:justify;>Con este proyecto se quiere crear una app web en la que un usuario pueda registrar su nombre, el
+                tipo de mascota que tiene, el nombre de la misma y si se encuentra vacunada o no. Adicional,
+                va a encontrar dos botones en la tabla que muestra los datos ingresados. Con el botón 'edit' pue-
+                de cambiar la información que ingresó. Con el botón 'delete' puede borrar el registro.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid ">
+      <div class="row mt-3">
+        <div class="col-3">
+          <div class="p-3 border bg-light">
+            <form action="/add/" method="POST" class="row g-3">{% csrf_token %}
+              <div class="col-md-12">
+                <label class="form-label">User name</label>
+                <input type="text" class="form-control" name="user_name">
+              </div>
+              <div class="col-md-12">
+                <label class="form-label">Pet type</label>
+                <input type="text" class="form-control" name="pet_type">
+              </div>
+              <div class="col-12">
+                <label class="form-label">Pet name</label>
+                <input type="text" class="form-control" name="pet_name">
+              </div>
+              <div class="col-12">
+                <label class="form-label">Vaccinated? (Y/N)</label>
+                <input type="text" class="form-control" name="vaccine">
+              </div>
+              <div class="col-8">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="col-9">
+          <div class="p-3 border bg-light">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">User</th>
+                  <th scope="col">Pet</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Vaccinated</th>
+                  <th scope="col">Edit</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for Registros in Registros %}
+                <tr>
+                  <td>{{Registros.user_name}}</td>
+                  <td>{{Registros.pet_type}}</td>
+                  <td>{{Registros.pet_name}}</td>
+                  <td>{{Registros.vaccine}}</td>
+                  <td>
+                    <a href="/edit/{{Registros.id}}" class="btn btn-outline-success">edit</a>
+                    <a href="/delete/{{Registros.id}}" class="btn btn-outline-danger">delete</a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+  </body>
+</html>
